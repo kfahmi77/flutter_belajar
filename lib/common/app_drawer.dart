@@ -17,7 +17,7 @@ class AppDrawer extends StatelessWidget {
             tileColor: currentRoute == '/' ? Colors.blue[100] : null,
             title: const Text('Home'),
             onTap: () {
-              context.go('/');
+              context.go('/home');
             },
           ),
           ListTile(
@@ -29,12 +29,17 @@ class AppDrawer extends StatelessWidget {
               context.go('/settings');
             },
           ),
-          const ExpansionTile(
-            title: Text('Menu'),
+          ExpansionTile(
+            title: Text('Network'),
             children: [
               ListTile(
-                title: Text('data'),
-              )
+                  title: Text('HTTP'),
+                  selected: currentRoute == '/http',
+                  selectedTileColor: Colors.blue[100],
+                  tileColor: currentRoute == '/http' ? Colors.blue[100] : null,
+                  onTap: () {
+                    GoRouter.of(context).go('/http');
+                  })
             ],
           ),
           ListTile(
