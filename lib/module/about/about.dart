@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_belajar/common/appbar.dart';
+import 'package:flutter_belajar/common/widget/animation/animated_align.dart';
+import 'package:flutter_belajar/common/widget/animation/animated_icon.dart';
 
 import '../../main.dart';
 
@@ -14,9 +16,7 @@ class AboutPage extends StatelessWidget {
           title: const Text('About'),
         ),
         drawer: const NavigationAppDrawer(),
-        body: const Center(
-          child: Text('This is the about page'),
-        ),
+        body: const Center(child: AnimatedIconWidget()),
       ),
     );
   }

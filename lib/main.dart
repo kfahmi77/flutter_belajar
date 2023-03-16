@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_belajar/common/app_drawer.dart';
-import 'package:go_router/go_router.dart';
 
 import 'routes.dart';
 
