@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_belajar/common/app_drawer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'routes.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Belajar Flutter',
       routerConfig: router,
     );
