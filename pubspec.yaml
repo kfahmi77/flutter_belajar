@@ -45,6 +45,9 @@ dependencies:
   flutter_svg: ^2.0.4
   screen_utils: ^0.0.1
   flutter_screenutil: ^5.7.0
+  image_picker: ^0.8.7+4
+  image_cropper: ^3.0.3
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

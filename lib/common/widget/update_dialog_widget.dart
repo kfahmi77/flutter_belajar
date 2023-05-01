@@ -104,7 +104,7 @@ class CustomDialog extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: const AlignmentDirectional(0, 1),
+            alignment: const AlignmentDirectional(0, 1.1),
             child: Container(
               width: ScreenUtil().screenWidth,
               height: 40.h,

@@ -51,6 +51,15 @@ class AppDrawer extends StatelessWidget {
               GoRouter.of(context).go('/about');
             },
           ),
+          ListTile(
+            selected: currentRoute == '/coba',
+            selectedTileColor: Colors.blue[100],
+            tileColor: currentRoute == '/coba' ? Colors.blue[100] : null,
+            title: const Text('Coba'),
+            onTap: () {
+              GoRouter.of(context).go('/coba');
+            },
+          ),
         ],
       ),
     );

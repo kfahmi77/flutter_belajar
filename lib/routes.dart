@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_belajar/module/coba/coba.dart';
 import 'package:flutter_belajar/module/http/http.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,6 +41,12 @@ final router = GoRouter(
           pageBuilder: (context, state) =>
               const MaterialPage<MaterialPageRoute>(
             child: HttpWidget(),
+          ),
+        ),
+        GoRoute(
+          path: 'coba',
+          pageBuilder: (context, state) => MaterialPage<MaterialPageRoute>(
+            child: CobaWidget(),
           ),
         ),
       ],
