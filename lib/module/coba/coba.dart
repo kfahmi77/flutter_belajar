@@ -2,141 +2,176 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class CobaWidget extends StatefulWidget {
-  const CobaWidget({super.key});
+  const CobaWidget({Key? key}) : super(key: key);
 
   @override
-  createState() => _CobaWidgetState();
+  State<CobaWidget> createState() => _CobaWidgetState();
 }
 
 class _CobaWidgetState extends State<CobaWidget> {
-  final ImagePicker _picker = ImagePicker();
-  File? _image;
-  bool _isImageSelected = false;
-  var _isStoragePermissionGranted = false;
-  bool get isStoragePermissionGranted => _isStoragePermissionGranted;
-
-  @override
-  void initState() {
-    super.initState();
-    checkPermission();
-  }
-
-  Future<void> checkPermission() async {
-    final PermissionStatus status = await Permission.storage.status;
-    if (status == await Permission.storage.isGranted) {
-      _isStoragePermissionGranted = true;
-      return;
-    } else {
-      final PermissionStatus result = await Permission.storage.request();
-      _isStoragePermissionGranted = result == PermissionStatus.granted;
-    }
-  }
-
-  Future<void> getImage(ImageSource source) async {
-    final PermissionStatus status = await Permission.photos.request();
-
-    if (status != PermissionStatus.granted) {
-      return;
-    }
-
-    final pickedFile = await _picker.pickImage(
-      source: source,
-      imageQuality: 50,
-    );
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-        _isImageSelected = true;
-      });
-    }
-  }
+  String selectedImagePath = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-      ),
+      backgroundColor: Colors.yellow.shade800,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              onTap: () async {
-                await showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return SizedBox(
-                      height: 150,
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: const Icon(Icons.camera),
-                            title: const Text("Take a photo"),
-                            onTap: () {
-                              getImage(ImageSource.camera);
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(Icons.photo_album),
-                            title: const Text("Choose from gallery"),
-                            onTap: () {
-                              getImage(ImageSource.gallery);
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey[300],
-                  image: _isImageSelected
-                      ? DecorationImage(
-                          image: FileImage(_image!),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
-                ),
-                child: _isImageSelected
-                    ? null
-                    : Icon(
-                        Icons.person,
-                        size: 60,
-                        color: Colors.grey[600],
-                      ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              "John Doe",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
-            const SizedBox(height: 8),
+            selectedImagePath == ''
+                ? Image.asset(
+                    'assets/image/default.png',
+                    height: 200,
+                    width: 200,
+                    fit: BoxFit.fill,
+                  )
+                : Image.file(
+                    File(selectedImagePath),
+                    height: 200,
+                    width: 200,
+                    fit: BoxFit.fill,
+                  ),
             Text(
-              "john.doe@example.com",
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 16,
-              ),
+              'Select Image',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
+            SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(20)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(fontSize: 14, color: Colors.white))),
+                onPressed: () async {
+                  selectImage();
+                  setState(() {});
+                },
+                child: const Text('Select')),
+            const SizedBox(height: 10),
           ],
         ),
       ),
     );
+  }
+
+  Future selectImage() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: Container(
+              height: 150,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Select Image From !',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            selectedImagePath = await selectImageFromGallery();
+                            print('Image_Path:-');
+                            print(selectedImagePath);
+                            if (selectedImagePath != '') {
+                              Navigator.pop(context);
+                              setState(() {});
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("No Image Selected !"),
+                              ));
+                            }
+                          },
+                          child: Card(
+                              elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/image/default.png',
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                    Text('Gallery'),
+                                  ],
+                                ),
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            selectedImagePath = await selectImageFromCamera();
+                            print('Image_Path:-');
+                            print(selectedImagePath);
+
+                            if (selectedImagePath != '') {
+                              Navigator.pop(context);
+                              setState(() {});
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("No Image Captured !"),
+                              ));
+                            }
+                          },
+                          child: Card(
+                              elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/image/default.png',
+                                      height: 60,
+                                      width: 60,
+                                    ),
+                                    Text('Camera'),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  selectImageFromGallery() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+
+  //
+  selectImageFromCamera() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
   }
 }

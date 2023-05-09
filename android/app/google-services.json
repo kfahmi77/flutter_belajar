@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1043313952204",
+    "project_id": "crud-flutter-e1726",
+    "storage_bucket": "crud-flutter-e1726.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043313952204:android:b3f3ae039237c3f7e28969",
+        "android_client_info": {
+          "package_name": "com.example.flutter_belajar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043313952204-m41rist6mubnrnptm2i3n1cg84p1ogh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdHRUuETfh81u-HHFYUfKqQFQJEHFJdaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043313952204-m41rist6mubnrnptm2i3n1cg84p1ogh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043313952204:android:1d27c8094fae3d83e28969",
+        "android_client_info": {
+          "package_name": "com.fahmi.crudflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043313952204-m41rist6mubnrnptm2i3n1cg84p1ogh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdHRUuETfh81u-HHFYUfKqQFQJEHFJdaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043313952204-m41rist6mubnrnptm2i3n1cg84p1ogh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,10 +30,10 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ExpansionTile(
-            title: Text('Network'),
+            title: const Text('Network'),
             children: [
               ListTile(
-                  title: Text('HTTP'),
+                  title: const Text('HTTP'),
                   selected: currentRoute == '/http',
                   selectedTileColor: Colors.blue[100],
                   tileColor: currentRoute == '/http' ? Colors.blue[100] : null,
@@ -59,6 +59,21 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               GoRouter.of(context).go('/coba');
             },
+          ),
+          ExpansionTile(
+            title: const Text('Firebase'),
+            children: [
+              ListTile(
+                selected: currentRoute == '/auth-firebase',
+                selectedTileColor: Colors.blue[100],
+                tileColor:
+                    currentRoute == '/auth-firebase' ? Colors.blue[100] : null,
+                title: const Text('Firebase'),
+                onTap: () {
+                  GoRouter.of(context).go('/auth-firebase');
+                },
+              ),
+            ],
           ),
         ],
       ),
