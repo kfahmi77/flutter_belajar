@@ -73,6 +73,16 @@ class AppDrawer extends StatelessWidget {
                   GoRouter.of(context).go('/auth-firebase');
                 },
               ),
+              ListTile(
+                selected: currentRoute == '/crud-firebase',
+                selectedTileColor: Colors.blue[100],
+                tileColor:
+                    currentRoute == '/crud-firebase' ? Colors.blue[100] : null,
+                title: const Text('CRUD Firebase'),
+                onTap: () {
+                  GoRouter.of(context).go('/crud-firebase');
+                },
+              ),
             ],
           ),
         ],
